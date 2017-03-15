@@ -1,6 +1,7 @@
 #!/usr/bin/evn python
 # -*- coding: utf-8 -*-
 import os
+import platform
 
 
 class Config:
@@ -20,13 +21,22 @@ class Config:
     @staticmethod
     def init_app(app):
         pass
-class  DevelopmentConfig(Config):
+
+
+class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:moji_dev@localhost/xianyun_test'
+    if platform.system() == 'Darwin':
+        SQLALCHEMY_DATABASE_URI = 'mysql://root:moji_dev@192.168.42.166/xianyun_test'
+    else:
+        SQLALCHEMY_DATABASE_URI = 'mysql://root:moji_dev@localhost/xianyun_test'
+
+
+
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'mysql://root:moji_dev@localhost/xianyun_test'
+
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql://root:moji_dev@localhost/xianyun_test'
